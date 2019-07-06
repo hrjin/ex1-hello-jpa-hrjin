@@ -9,8 +9,9 @@
 
 # Idea config #
 ################
-.idea/*
-target/*
+.idea/
+target/
+build/
  
 # Packages #
 ############
