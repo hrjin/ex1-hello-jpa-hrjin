@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args){
@@ -43,7 +42,7 @@ public class JpaMain {
 //            for(Member member : findMembers) {
 //                System.out.println("member ::: " + member.getName());
 //            }
-
+/*
             // 비영속 상태
             Member member = new Member();
             member.setId(4L);
@@ -60,8 +59,10 @@ public class JpaMain {
             System.out.println("1차 캐시에서 찾는다...");
             System.out.println("findMember name ::: " + findMember.getName());
 
+*/
             // 실제 DB에 저장
             tx.commit();
+
         } catch (Exception e){
             tx.rollback();
         }finally {

@@ -6,6 +6,10 @@
 *.exe
 *.o
 *.so
+
+# Idea config #
+################
+.idea/*
  
 # Packages #
 ############
