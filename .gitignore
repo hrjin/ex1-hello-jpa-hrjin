@@ -10,6 +10,7 @@
 # Idea config #
 ################
 .idea/*
+target/*
  
 # Packages #
 ############
