@@ -67,8 +67,12 @@ public class JpaMain {
 
             Member member = new Member();
             member.setUsername("hrjin");
-            member.setTeam(team);
+            //member.setTeam(team);
             em.persist(member);
+
+            // 연관관계 편의 메소드 설정
+
+            team.addMember(member);// 순수 객체 상태를 고려해서 항상 양쪽에 값을 설정하자.
 
             em.flush();
             em.clear();
