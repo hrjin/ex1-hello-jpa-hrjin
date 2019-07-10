@@ -12,12 +12,17 @@ import java.util.Date;
 public class Member {
 
     @Id
+    @GeneratedValue
     private Long id;
 
     @Column(name = "name")
     private String username;
 
     private Integer age;
+
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
 
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
