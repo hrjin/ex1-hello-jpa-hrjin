@@ -61,6 +61,7 @@ public class JpaMain {
             System.out.println("findMember name ::: " + findMember.getName());
 
 */
+            // Example 1 :: 연관관계
             Team team = new Team();
             team.setName("teamA");
             em.persist(team);
@@ -71,7 +72,6 @@ public class JpaMain {
             em.persist(member);
 
             // 연관관계 편의 메소드 설정
-
             team.addMember(member);// 순수 객체 상태를 고려해서 항상 양쪽에 값을 설정하자.
 
             em.flush();
@@ -83,6 +83,15 @@ public class JpaMain {
             for(Member m : members) {
                 System.out.println("m = " + m.getUsername());
             }
+
+            // Example 2 :: 상속
+            Movie movie = new Movie();
+            movie.setDirector("A");
+            movie.setActor("B");
+            movie.setName("토이스토리");
+            movie.setPrice(10000);
+            em.persist(movie);
+
 
             // 실제 DB에 저장
             tx.commit();
