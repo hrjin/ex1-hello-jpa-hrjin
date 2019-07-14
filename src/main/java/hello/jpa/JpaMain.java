@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class JpaMain {
@@ -61,6 +62,8 @@ public class JpaMain {
             System.out.println("findMember name ::: " + findMember.getName());
 
 */
+/*
+
             // Example 1 :: 연관관계
             Team team = new Team();
             team.setName("teamA");
@@ -91,7 +94,18 @@ public class JpaMain {
             movie.setName("토이스토리");
             movie.setPrice(10000);
             em.persist(movie);
+*/
 
+            // Example 3 :: MappedSuperClass
+            Member member = new Member();
+            member.setUsername("user1");
+            member.setCreatedBy("hrjin");
+            member.setCreatedDate(LocalDateTime.now());
+
+            em.persist(member);
+
+            em.flush();
+            em.clear();
 
             // 실제 DB에 저장
             tx.commit();

@@ -3,13 +3,10 @@ package hello.jpa;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @Entity
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -26,17 +23,6 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
-
-    private LocalDate createdLocalDate;
-
-    private LocalDateTime createdLocalDateTime;
-
 
     @Lob // 많은 양의 text 일 경우
     private String description;

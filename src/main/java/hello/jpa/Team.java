@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Team {
+public class Team extends BaseEntity {
 
     @Id
     @GeneratedValue
