@@ -95,6 +95,7 @@ public class JpaMain {
             movie.setPrice(10000);
             em.persist(movie);
 */
+/*
 
             // Example 3 :: MappedSuperClass
             Member member = new Member();
@@ -106,6 +107,21 @@ public class JpaMain {
 
             em.flush();
             em.clear();
+*/
+
+            // Example 4 :: 프록시
+            Member member = new Member();
+            member.setUsername("user1");
+            member.setCreatedBy("hrjin");
+            member.setCreatedDate(LocalDateTime.now());
+
+            em.persist(member);
+            em.flush();
+            em.clear();
+
+            Member findMember = em.getReference(Member.class, member.getId());
+            System.out.println("findMember.username = " + findMember.getUsername());
+            System.out.println("findMember.username = " + findMember.getUsername());
 
             // 실제 DB에 저장
             tx.commit();
