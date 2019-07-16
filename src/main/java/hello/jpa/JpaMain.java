@@ -109,19 +109,44 @@ public class JpaMain {
             em.clear();
 */
 
-            // Example 4 :: 프록시
+            // Example 4 :: 프록시 & Example 5 :: 즉시 로딩과 지연 로딩
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
+
             Member member = new Member();
             member.setUsername("user1");
             member.setCreatedBy("hrjin");
             member.setCreatedDate(LocalDateTime.now());
+            member.setTeam(team);
 
             em.persist(member);
+
             em.flush();
             em.clear();
 
-            Member findMember = em.getReference(Member.class, member.getId());
-            System.out.println("findMember.username = " + findMember.getUsername());
-            System.out.println("findMember.username = " + findMember.getUsername());
+            //Member findMember = em.getReference(Member.class, member.getId());
+            //System.out.println("findMember.username = " + findMember.getUsername());
+
+/*
+
+            // 지연 로딩 사용해서 프록시로 조회
+            Member m  = em.find(Member.class, member.getId());
+
+            System.out.println("m = " + m.getTeam().getClass()); // proxy 객체 출력
+
+            // 실제 Team 을 사용하는 시점에 프록시 초기화(DB 조회)
+            System.out.println("========================");
+            m.getTeam().getName(); // 이 순간 초기화
+            System.out.println("========================");
+*/
+
+            List<Member> members = em.createQuery("select m from Member m join fetch m.team", Member.class).getResultList();
+
+            for(Member member1 : members){
+                System.out.println("member ::: " + member1.getTeam().getName());
+            }
+
 
             // 실제 DB에 저장
             tx.commit();
