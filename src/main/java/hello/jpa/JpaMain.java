@@ -108,6 +108,7 @@ public class JpaMain {
             em.flush();
             em.clear();
 */
+/*
 
             // Example 4 :: 프록시 & Example 5 :: 즉시 로딩과 지연 로딩
             Team team = new Team();
@@ -128,6 +129,7 @@ public class JpaMain {
             //Member findMember = em.getReference(Member.class, member.getId());
             //System.out.println("findMember.username = " + findMember.getUsername());
 
+*/
 /*
 
             // 지연 로딩 사용해서 프록시로 조회
@@ -139,14 +141,34 @@ public class JpaMain {
             System.out.println("========================");
             m.getTeam().getName(); // 이 순간 초기화
             System.out.println("========================");
-*/
+*//*
+
 
             List<Member> members = em.createQuery("select m from Member m join fetch m.team", Member.class).getResultList();
 
             for(Member member1 : members){
                 System.out.println("member ::: " + member1.getTeam().getName());
             }
+*/
 
+            // Example 6 :: 영속성 전이와 고아 객체
+            Child child1 = new Child();
+            Child child2 = new Child();
+
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
+
+            em.persist(parent);
+            //em.persist(child1);
+            //em.persist(child2);
+
+            em.flush();
+            em.clear();
+
+            // 고아 객체
+            Parent findParent = em.find(Parent.class, parent.getId());
+            findParent.getChildList().remove(0);
 
             // 실제 DB에 저장
             tx.commit();
