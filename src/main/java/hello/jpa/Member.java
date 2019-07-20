@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-public class Member extends BaseEntity {
+public class Member {
 
     @Id
     @GeneratedValue
@@ -14,6 +14,22 @@ public class Member extends BaseEntity {
 
     @Column(name = "name")
     private String username;
+
+    // 기간 임베디드 객체
+    @Embedded
+    private Period period;
+
+    // 집 주소 임베디드 객체
+    @Embedded
+    private Address homeAddress;
+
+    // 회사 주소 임베디드 객체
+    @Embedded
+    @AttributeOverrides({@AttributeOverride(name = "city", column = @Column(name = "com_city")),
+            @AttributeOverride(name = "street", column = @Column(name = "com_street")),
+            @AttributeOverride(name = "zipCode", column = @Column(name = "com_zipCode"))
+    })
+    private Address companyAddress;
 
     private Integer age;
 

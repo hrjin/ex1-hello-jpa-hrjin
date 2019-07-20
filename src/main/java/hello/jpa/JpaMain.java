@@ -4,8 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.time.LocalDateTime;
-import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args){
@@ -150,7 +148,7 @@ public class JpaMain {
                 System.out.println("member ::: " + member1.getTeam().getName());
             }
 */
-
+/*
             // Example 6 :: 영속성 전이와 고아 객체
             Child child1 = new Child();
             Child child2 = new Child();
@@ -169,6 +167,14 @@ public class JpaMain {
             // 고아 객체
             Parent findParent = em.find(Parent.class, parent.getId());
             findParent.getChildList().remove(0);
+*/
+            // Example 7 :: 임베디드 타입
+            Member member = new Member();
+            member.setUsername("A");
+            member.setHomeAddress(new Address("city", "street", "1000"));
+            member.setPeriod(new Period());
+
+            em.persist(member);
 
             // 실제 DB에 저장
             tx.commit();
