@@ -4,6 +4,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
+import java.util.Set;
 
 public class JpaMain {
     public static void main(String[] args){
@@ -174,7 +176,47 @@ public class JpaMain {
             member.setHomeAddress(new Address("city", "street", "1000"));
             member.setPeriod(new Period());
 
+            // 값 타입 저장 예제
+            member.getFavoriteFoods().add("피자");
+            member.getFavoriteFoods().add("치킨");
+
+            member.getAddressHistory().add(new Address("old1", "street1","700"));
+            member.getAddressHistory().add(new Address("old2", "street1","700"));
+
             em.persist(member);
+
+            em.flush();
+            em.clear();
+
+            // 값 타입 조회 예제
+            System.out.println("======== START ========");
+            Member findMember = em.find(Member.class, member.getId());
+
+            List<Address> addressList = findMember.getAddressHistory();
+            for (Address address : addressList) {
+                System.out.println("address = " + address);
+            }
+
+            Set<String> favoriteFoodList = findMember.getFavoriteFoods();
+            for (String food : favoriteFoodList) {
+                System.out.println("favorite food = " + food);
+            }
+
+            // 값 타입 수정 예제 (city -> newCity)
+            // : 값 타입은 추적이 안돼서 다른 데이터에 side effect 일어날 확률 높으므로
+            // 새로운 생성자를 통해서 값을 교체해줘야 함.
+            Address a = findMember.getHomeAddress();
+            findMember.setHomeAddress(new Address("newCity", a.getStreet(), a.getZipCode()));
+
+            // 값 타입 컬렉션 수정 예제
+
+            // (치킨 -> 한식)
+            findMember.getFavoriteFoods().remove("치킨");
+            findMember.getFavoriteFoods().add("한식");
+
+            // (old1 -> new1)
+            findMember.getAddressHistory().remove(new Address("old1", "street1","700"));
+            findMember.getAddressHistory().add(new Address("new1", "street2","1100"));
 
             // 실제 DB에 저장
             tx.commit();
