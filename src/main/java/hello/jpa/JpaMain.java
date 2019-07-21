@@ -180,8 +180,8 @@ public class JpaMain {
             member.getFavoriteFoods().add("피자");
             member.getFavoriteFoods().add("치킨");
 
-            member.getAddressHistory().add(new Address("old1", "street1","700"));
-            member.getAddressHistory().add(new Address("old2", "street1","700"));
+            member.getAddressHistory().add(new AddressEntity("old1", "street1","700"));
+            member.getAddressHistory().add(new AddressEntity("old2", "street1","700"));
 
             em.persist(member);
 
@@ -191,6 +191,7 @@ public class JpaMain {
             // 값 타입 조회 예제
             System.out.println("======== START ========");
             Member findMember = em.find(Member.class, member.getId());
+/*
 
             List<Address> addressList = findMember.getAddressHistory();
             for (Address address : addressList) {
@@ -217,6 +218,7 @@ public class JpaMain {
             // (old1 -> new1)
             findMember.getAddressHistory().remove(new Address("old1", "street1","700"));
             findMember.getAddressHistory().add(new Address("new1", "street2","1100"));
+*/
 
             // 실제 DB에 저장
             tx.commit();
